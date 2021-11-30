@@ -1,9 +1,13 @@
 package book.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "work_time")
+@Data
 public class WorkTime {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

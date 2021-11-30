@@ -11,7 +11,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class WorkTimeDto implements Serializable {
 	private static final long serialVersionUID = 6L;
-	int id;
-	private Time startTime;
-	private Time endTime;
+
+	private int id;
+	private Date startTime;
+	private Date endTime;
 }

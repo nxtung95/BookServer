@@ -25,10 +25,13 @@ public class ServerApp {
 			ProductServiceImpl productService = applicationContext.getBean(ProductServiceImpl.class);
 			CategoryServiceImpl categoryService = applicationContext.getBean(CategoryServiceImpl.class);
 			CustomerServiceImpl customerService = applicationContext.getBean(CustomerServiceImpl.class);
+			InvoiceServiceImpl invoiceService = applicationContext.getBean(InvoiceServiceImpl.class);
+
 			Naming.rebind("rmi://" + HOST + ":" + PORT + "/userService", userService);
 			Naming.rebind("rmi://" + HOST + ":" + PORT + "/productService", productService);
 			Naming.rebind("rmi://" + HOST + ":" + PORT + "/categoryService", categoryService);
 			Naming.rebind("rmi://" + HOST + ":" + PORT + "/customerService", customerService);
+			Naming.rebind("rmi://" + HOST + ":" + PORT + "/invoiceService", invoiceService);
 			System.out.println("Server started!");
 		} catch (Exception e) {
 			System.out.println("Error starting server... " + e);

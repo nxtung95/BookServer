@@ -19,7 +19,7 @@ public class InvoiceRepository {
 	private EntityManager em;
 
 	@Transactional(readOnly = true)
-	public List<InvoiceDto> search(String invoiceNo, String customerName, Date createDate, int work, String staffName, String productName) {
+	public List<InvoiceDto> search(String invoiceNo, String customerName, String productName) {
 		List<InvoiceDto> invoiceDtoList = new ArrayList<>();
 		try {
 			StringBuilder sql = new StringBuilder();
@@ -38,20 +38,19 @@ public class InvoiceRepository {
 			if (!customerName.isEmpty() && customerName != null) {
 				sql.append("AND d.name LIKE :customerName ");
 			}
-			if (createDate != null) {
-				sql.append("AND DATE(c.created_date) = :created_date ");
-			}
-			if (work != 0) {
-				sql.append("AND h.id = :work ");
-			}
-			if (!staffName.isEmpty() && staffName != null) {
-				sql.append("AND f.name LIKE :staffName ");
-			}
-
 			if (!productName.isEmpty() && productName != null) {
 				sql.append("AND d.name LIKE :productName ");
 			}
 			Query query = em.createNativeQuery(sql.toString());
+			if (!invoiceNo.isEmpty() && invoiceNo != null) {
+				query.setParameter("invoice_no", "%" + invoiceNo + "%");
+			}
+			if (!customerName.isEmpty() && customerName != null) {
+				query.setParameter("customerName", "%" + customerName + "%");
+			}
+			if (!productName.isEmpty() && productName != null) {
+				query.setParameter("productName", "%" + productName + "%");
+			}
 			List<Object[]> rows = query.getResultList();
 			for (Object[] row : rows) {
 				invoiceDtoList.add(new InvoiceDto((String) row[1],(String) row[2],
