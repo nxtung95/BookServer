@@ -1,7 +1,6 @@
 package book.service;
 
 import book.dto.CategoryDto;
-import book.entity.Category;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

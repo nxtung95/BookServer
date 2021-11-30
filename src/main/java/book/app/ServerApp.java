@@ -1,9 +1,6 @@
 package book.app;
 
-import book.service.CategoryServiceImpl;
-import book.service.ProductServiceImpl;
-import book.service.UserService;
-import book.service.UserServiceImpl;
+import book.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -27,9 +24,11 @@ public class ServerApp {
 			UserServiceImpl userService = applicationContext.getBean(UserServiceImpl.class);
 			ProductServiceImpl productService = applicationContext.getBean(ProductServiceImpl.class);
 			CategoryServiceImpl categoryService = applicationContext.getBean(CategoryServiceImpl.class);
+			CustomerServiceImpl customerService = applicationContext.getBean(CustomerServiceImpl.class);
 			Naming.rebind("rmi://" + HOST + ":" + PORT + "/userService", userService);
 			Naming.rebind("rmi://" + HOST + ":" + PORT + "/productService", productService);
 			Naming.rebind("rmi://" + HOST + ":" + PORT + "/categoryService", categoryService);
+			Naming.rebind("rmi://" + HOST + ":" + PORT + "/customerService", customerService);
 			System.out.println("Server started!");
 		} catch (Exception e) {
 			System.out.println("Error starting server... " + e);

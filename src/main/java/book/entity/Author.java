@@ -1,6 +1,7 @@
 package book.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "author")
 @Data
+@NoArgsConstructor
 public class Author implements Serializable {
 	private static final long serialVersionUID = 2L;
 

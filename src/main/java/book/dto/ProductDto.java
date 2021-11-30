@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 public class ProductDto implements Serializable {
 	private static final long serialVersionUID = 2L;
 
+	private Integer id;
 	private String productId;
 	private String categoryName;
 	private String productName;

@@ -1,6 +1,7 @@
 package book.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "product")
 @Data
+@NoArgsConstructor
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +30,11 @@ public class Product {
 	private int quantity;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "publisher_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "publisher_id", referencedColumnName = "id")
 	private Publisher publisher;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "supplier_id", referencedColumnName = "id")
+	@JoinColumn(name = "supplier_id", referencedColumnName = "id", nullable = false)
 	private Supplier supplier;
 
 	@ManyToOne(fetch = FetchType.LAZY)

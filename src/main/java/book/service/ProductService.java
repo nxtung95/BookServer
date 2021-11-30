@@ -10,4 +10,9 @@ public interface ProductService extends Remote {
 	List<ProductDto> search(String productId, String productName, int categoryId, String supplierName) throws RemoteException;
 
 	boolean add(String productName, String productId, int categoryId, String price, String supplier, String image, int totalPage, String author, String publisher) throws RemoteException;
+
+	boolean update(Integer id, String productName, String productId, int categoryId, String price, String supplier, String image, int totalPage, String author, String publisher) throws RemoteException;
+
+	boolean remove(Integer id) throws RemoteException;
+
 }

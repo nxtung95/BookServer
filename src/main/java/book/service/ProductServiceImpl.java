@@ -39,13 +39,16 @@ public class ProductServiceImpl extends UnicastRemoteObject implements ProductSe
 	@Override
 	public boolean add(String productName, String productId, int categoryId, String price, String supplier, String image, int totalPage, String author, String publisher) throws RemoteException {
 		try {
-			Product product = new Product(productId, productName, "", image, totalPage, new BigDecimal(price), 0);
+			Product product = new Product(productId, productName, "Description", image, totalPage, new BigDecimal(price), 0);
 			if (publisher != null && publisher != "") {
 				product.setPublisher(new Publisher(publisher));
 			}
 			if (author != null && author != "") {
 				Set<Author> authorSet = new HashSet<>();
-				authorSet.add(new Author(author));
+				String[] authors = author.split(",");
+				for (String a : authors) {
+					authorSet.add(new Author(a));
+				}
 				product.setAuthors(authorSet);
 			}
 			product.setSupplier(new Supplier(supplier));
@@ -59,5 +62,38 @@ public class ProductServiceImpl extends UnicastRemoteObject implements ProductSe
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public boolean update(Integer id, String productName, String productId, int categoryId, String price, String supplier, String image, int totalPage, String author, String publisher) throws RemoteException {
+		try {
+			Product product = new Product(productId, productName, "Description", image, totalPage, new BigDecimal(price), 0);
+			product.setId(id);
+			if (publisher != null && publisher != "") {
+				product.setPublisher(new Publisher(publisher));
+			}
+			if (author != null && author != "") {
+				Set<Author> authorSet = new HashSet<>();
+				String[] authors = author.split(",");
+				for (String a : authors) {
+					authorSet.add(new Author(a));
+				}
+				product.setAuthors(authorSet);
+			}
+			product.setSupplier(new Supplier(supplier));
+			Category category = categoryRepository.findById(categoryId);
+			product.setCategory(category);
+			boolean result = productRepository.update(product);
+			System.out.println("Response update product, result: " + result);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean remove(Integer id) throws RemoteException {
+		return productRepository.delete(id);
 	}
 }
